@@ -1,20 +1,22 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import TaskList from './components/TaskList'
-import TaskForm from './components/TaskForm'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import LoginForm from './components/LoginForm'
+import SignupForm from './components/SignupForm'
+import Dashboard from './components/Dashboard'
+import './App.css'
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/tasks" element={<TaskList />} />
-        <Route path="/tasks/new" element={<TaskForm />} />
-      </Routes>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/login" component={LoginForm} />
+          <Route path="/signup" component={SignupForm} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/" component={LoginForm} />
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
