@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+# Ignore the electron node_modules directory
 electron/node_modules/
 
 # Editor directories and files
