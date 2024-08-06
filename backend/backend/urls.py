@@ -22,3 +22,4 @@ urlpatterns = [
     path('api/auth/', include('auth_app.urls')),
     path('api/', include('tasks_app.urls')),
 ]
+

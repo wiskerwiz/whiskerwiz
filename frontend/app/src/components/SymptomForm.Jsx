@@ -1,32 +1,34 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+// src/components/SymptomForm.jsx
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const SymptomForm = ({ fetchSymptoms }) => {
-  const [symptomDescription, setSymptomDescription] = useState('')
+  const [description, setDescription] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/symptoms/', { symptom_description: symptomDescription })
-      setSymptomDescription('')
-      fetchSymptoms()
+      await axios.post('http://localhost:8000/api/symptoms/', { description });
+      fetchSymptoms();
     } catch (error) {
-      console.error('Error creating symptom:', error)
+      console.error('Error adding symptom:', error);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={symptomDescription}
-        onChange={(e) => setSymptomDescription(e.target.value)}
-        placeholder="Enter symptom description"
-        required
-      />
+      <div className="form-group">
+        <input
+          type="text"
+          placeholder="Enter symptom description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+      </div>
       <button type="submit">Add Symptom</button>
     </form>
-  )
-}
+  );
+};
 
-export default SymptomForm
+export default SymptomForm;

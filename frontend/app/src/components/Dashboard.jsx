@@ -1,46 +1,126 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import TaskForm from './TaskForm'
-import TaskList from './TaskList'
-import SymptomForm from './SymptomForm'
-import SymptomList from './SymptomList'
+// src/components/Dashboard.jsx
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import TaskForm from './TaskForm';
+import TaskList from './TaskList';
+import SymptomForm from './SymptomForm';
+import SymptomList from './SymptomList';
 
 const Dashboard = () => {
-  const [tasks, setTasks] = useState([])
-  const [symptoms, setSymptoms] = useState([])
+  const [tasks, setTasks] = useState([]);
+  const [symptoms, setSymptoms] = useState([]);
+  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [showSymptomForm, setShowSymptomForm] = useState(false);
+  const [taskDescription, setTaskDescription] = useState('');
+  const [taskDate, setTaskDate] = useState('');
+  const [taskTime, setTaskTime] = useState('');
+  const [symptomDescription, setSymptomDescription] = useState('');
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/tasks/')
-      setTasks(response.data)
+      const response = await axios.get('http://localhost:8000/api/tasks/');
+      setTasks(response.data);
     } catch (error) {
-      console.error('Error fetching tasks:', error)
+      console.error('Error fetching tasks:', error);
     }
-  }
+  };
 
   const fetchSymptoms = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/symptoms/')
-      setSymptoms(response.data)
+      const response = await axios.get('http://localhost:8000/api/symptoms/');
+      setSymptoms(response.data);
     } catch (error) {
-      console.error('Error fetching symptoms:', error)
+      console.error('Error fetching symptoms:', error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchTasks()
-    fetchSymptoms()
-  }, [])
+    fetchTasks();
+    fetchSymptoms();
+  }, []);
+
+  const toggleTaskForm = () => setShowTaskForm(!showTaskForm);
+  const toggleSymptomForm = () => setShowSymptomForm(!showSymptomForm);
+
+  const handleTaskSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newTask = {
+        description: taskDescription,
+        date: taskDate,
+        time: taskTime,
+      };
+      await axios.post('http://localhost:8000/api/tasks/', newTask);
+      fetchTasks();
+      setTaskDescription('');
+      setTaskDate('');
+      setTaskTime('');
+      toggleTaskForm();
+    } catch (error) {
+      console.error('Error adding task:', error);
+    }
+  };
+
+  const handleSymptomSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newSymptom = {
+        description: symptomDescription,
+      };
+      await axios.post('http://localhost:8000/api/symptoms/', newSymptom);
+      fetchSymptoms();
+      setSymptomDescription('');
+      toggleSymptomForm();
+    } catch (error) {
+      console.error('Error adding symptom:', error);
+    }
+  };
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h1>Dashboard</h1>
-      <TaskForm fetchTasks={fetchTasks} />
-      <TaskList tasks={tasks} />
-      <SymptomForm fetchSymptoms={fetchSymptoms} />
-      <SymptomList symptoms={symptoms} />
+      <div className="button-group">
+        {!showTaskForm && <button className="button" onClick={toggleTaskForm}>Add Task</button>}
+        {!showSymptomForm && <button className="button" onClick={toggleSymptomForm}>Add Symptom</button>}
+      </div>
+      {showTaskForm && (
+        <form className="form-container active" onSubmit={handleTaskSubmit}>
+          <input
+            type="text"
+            placeholder="Enter task description"
+            value={taskDescription}
+            onChange={(e) => setTaskDescription(e.target.value)}
+            required
+          />
+          <input
+            type="date"
+            value={taskDate}
+            onChange={(e) => setTaskDate(e.target.value)}
+            required
+          />
+          <input
+            type="time"
+            value={taskTime}
+            onChange={(e) => setTaskTime(e.target.value)}
+            required
+          />
+          <button type="submit">Submit Task</button>
+        </form>
+      )}
+      {showSymptomForm && (
+        <form className="form-container active" onSubmit={handleSymptomSubmit}>
+          <input
+            type="text"
+            placeholder="Enter symptom description"
+            value={symptomDescription}
+            onChange={(e) => setSymptomDescription(e.target.value)}
+            required
+          />
+          <button type="submit">Submit Symptom</button>
+        </form>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
