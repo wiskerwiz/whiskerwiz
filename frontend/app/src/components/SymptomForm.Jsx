@@ -2,31 +2,39 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SymptomForm = ({ fetchSymptoms }) => {
-  const [description, setDescription] = useState('');
+const SymptomForm = ({ fetchSymptoms, toggleSymptomForm }) => {
+  const [symptomDescription, setSymptomDescription] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSymptomSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/symptoms/', { description });
+      const newSymptom = {
+        symptom_description: symptomDescription,
+        date_logged: new Date().toISOString().split('T')[0],
+      };
+      await axios.post('http://localhost:8000/api/symptoms/', newSymptom, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       fetchSymptoms();
+      setSymptomDescription('');
+      toggleSymptomForm();
     } catch (error) {
-      console.error('Error adding symptom:', error);
+      console.error('Error adding symptom:', error.response?.data || error.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Enter symptom description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit">Add Symptom</button>
+    <form className="form-container active" onSubmit={handleSymptomSubmit}>
+      <input
+        type="text"
+        placeholder="Enter symptom description"
+        value={symptomDescription}
+        onChange={(e) => setSymptomDescription(e.target.value)}
+        required
+      />
+      <button type="submit">Submit Symptom</button>
     </form>
   );
 };

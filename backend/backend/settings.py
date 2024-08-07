@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'auth_app',
     'tasks_app',
     'corsheaders',
+    'django_q',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
+Q_CLUSTER = {
+    'name': 'DjangoQ',
+    'workers': 4,
+    'recycle': 500,
+    'timeout': 60,
+    'ack_failures': True,
+    'redis': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

@@ -1,0 +1,51 @@
+// src/components/PainForm.jsx
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const PainForm = ({ fetchPainRecords, togglePainForm }) => {
+  const [painLevel, setPainLevel] = useState('');
+  const [painLocation, setPainLocation] = useState('');
+
+  const handlePainSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const newPainRecord = {
+        pain_level: painLevel,
+        pain_location: painLocation,
+      };
+      await axios.post('http://localhost:8000/api/pain_records/', newPainRecord, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      fetchPainRecords();
+      setPainLevel('');
+      setPainLocation('');
+      togglePainForm();
+    } catch (error) {
+      console.error('Error adding pain record:', error.response?.data || error.message);
+    }
+  };
+
+  return (
+    <form className="form-container active" onSubmit={handlePainSubmit}>
+      <input
+        type="number"
+        placeholder="Pain level (1-10)"
+        value={painLevel}
+        onChange={(e) => setPainLevel(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Pain location"
+        value={painLocation}
+        onChange={(e) => setPainLocation(e.target.value)}
+        required
+      />
+      <button type="submit">Submit Pain Record</button>
+    </form>
+  );
+};
+
+export default PainForm;

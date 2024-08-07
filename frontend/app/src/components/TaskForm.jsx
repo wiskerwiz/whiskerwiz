@@ -2,38 +2,57 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const TaskForm = ({ fetchTasks }) => {
-  const [description, setDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
+const TaskForm = ({ fetchTasks, toggleTaskForm }) => {
+  const [taskDescription, setTaskDescription] = useState('');
+  const [taskDate, setTaskDate] = useState('');
+  const [taskTime, setTaskTime] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleTaskSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/tasks/', { description, due_date: dueDate });
+      const newTask = {
+        task_description: taskDescription,
+        due_date: taskDate,
+        reminder_time: taskTime,
+        status: 'pending',
+      };
+      await axios.post('http://localhost:8000/api/tasks/', newTask, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       fetchTasks();
+      setTaskDescription('');
+      setTaskDate('');
+      setTaskTime('');
+      toggleTaskForm();
     } catch (error) {
-      console.error('Error adding task:', error);
+      console.error('Error adding task:', error.response?.data || error.message);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Enter task description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
-        <input
-          type="datetime-local"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit">Add Task</button>
+    <form className="form-container active" onSubmit={handleTaskSubmit}>
+      <input
+        type="text"
+        placeholder="Enter task description"
+        value={taskDescription}
+        onChange={(e) => setTaskDescription(e.target.value)}
+        required
+      />
+      <input
+        type="date"
+        value={taskDate}
+        onChange={(e) => setTaskDate(e.target.value)}
+        required
+      />
+      <input
+        type="time"
+        value={taskTime}
+        onChange={(e) => setTaskTime(e.target.value)}
+        required
+      />
+      <button type="submit">Submit Task</button>
     </form>
   );
 };
