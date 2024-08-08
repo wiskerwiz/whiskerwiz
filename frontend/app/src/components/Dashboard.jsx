@@ -1,76 +1,79 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import wizImage from "../assets/wiz.png";
-import "../App.css";
-import TaskForm from "./TaskForm";
-import SymptomForm from "./SymptomForm";
-import PainForm from "./PainForm";
-import PeriodForm from "./PeriodForm";
-import MedicationForm from "./MedicationForm";
-import SleepForm from "./SleepForm";
+import React, { useState } from 'react';
+import TaskForm from './TaskForm';
+import SymptomForm from './SymptomForm';
+import PainForm from './PainForm';
+import PeriodForm from './PeriodForm';
+import MedicationForm from './MedicationForm';
+import SleepForm from './SleepForm';
+import WeightTrackerForm from './WeightTrackerForm';
+import CalendarForm from './CalendarForm';
+import wizImage from '../assets/wiz.png';
+import addTaskIcon from '../assets/add_task_icon.svg';
+import addSymptomIcon from '../assets/add_symptom_icon.svg';
+import addPainRecordIcon from '../assets/add_pain_record_icon.svg';
+import addPeriodRecordIcon from '../assets/add_period_record_icon.svg';
+import addMedicationIcon from '../assets/add_medication_icon.svg';
+import addSleepRecordIcon from '../assets/add_sleep_record_icon.svg';
+import weightTrackerIcon from '../assets/weight_tracker_icon.svg';
+import calendarIcon from '../assets/calendar_icon.svg';
+
+import '../App.css';
 
 const Dashboard = () => {
-  const [tasks, setTasks] = useState([]);
-  const [symptoms, setSymptoms] = useState([]);
-  const [visibleForm, setVisibleForm] = useState(null);
+  const [activeForm, setActiveForm] = useState(null);
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/api/tasks/");
-      setTasks(response.data);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
-
-  const fetchSymptoms = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/api/symptoms/");
-      setSymptoms(response.data);
-    } catch (error) {
-      console.error("Error fetching symptoms:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchTasks();
-    fetchSymptoms();
-  }, []);
-
-  const toggleForm = (form) => {
-    setVisibleForm(visibleForm === form ? null : form);
+  const handleFormToggle = (formName) => {
+    setActiveForm(activeForm === formName ? null : formName);
   };
 
   return (
     <div className="dashboard-container">
-      <img src={wizImage} alt="Wizard" className="wiz-image" />
-      <h1>Dashboard</h1>
-      <div className="button-group">
-        <button className="button" onClick={() => toggleForm("task")}>
-          Add Task
-        </button>
-        <button className="button" onClick={() => toggleForm("symptom")}>
-          Add Symptom
-        </button>
-        <button className="button" onClick={() => toggleForm("pain")}>
-          Add Pain Record
-        </button>
-        <button className="button" onClick={() => toggleForm("period")}>
-          Add Period Record
-        </button>
-        <button className="button" onClick={() => toggleForm("medication")}>
-          Add Medication
-        </button>
-        <button className="button" onClick={() => toggleForm("sleep")}>
-          Add Sleep Record
-        </button>
+      <div className="header">
+        <img src={wizImage} alt="Wizard Icon" className="wiz-image" />
+        <h1>Dashboard</h1>
       </div>
-      {visibleForm === "task" && <TaskForm />}
-      {visibleForm === "symptom" && <SymptomForm />}
-      {visibleForm === "pain" && <PainForm />}
-      {visibleForm === "period" && <PeriodForm />}
-      {visibleForm === "medication" && <MedicationForm />}
-      {visibleForm === "sleep" && <SleepForm />}
+      <div className="button-group">
+        <div className="button-item" onClick={() => handleFormToggle('task')}>
+          <img src={addTaskIcon} alt="Add Task" />
+          <p>Add Task</p>
+        </div>
+        <div className="button-item" onClick={() => handleFormToggle('symptom')}>
+          <img src={addSymptomIcon} alt="Add Symptom" />
+          <p>Add Symptom</p>
+        </div>
+        <div className="button-item" onClick={() => handleFormToggle('pain')}>
+          <img src={addPainRecordIcon} alt="Add Pain Record" />
+          <p>Add Pain Record</p>
+        </div>
+        <div className="button-item" onClick={() => handleFormToggle('period')}>
+          <img src={addPeriodRecordIcon} alt="Add Period Record" />
+          <p>Add Period Record</p>
+        </div>
+        <div className="button-item" onClick={() => handleFormToggle('medication')}>
+          <img src={addMedicationIcon} alt="Add Medication" />
+          <p>Add Medication</p>
+        </div>
+        <div className="button-item" onClick={() => handleFormToggle('sleep')}>
+          <img src={addSleepRecordIcon} alt="Add Sleep Record" />
+          <p>Add Sleep Record</p>
+        </div>
+        <div className="button-item" onClick={() => handleFormToggle('weight')}>
+          <img src={weightTrackerIcon} alt="Weight Tracker" />
+          <p>Weight Tracker</p>
+        </div>
+        <div className="button-item" onClick={() => handleFormToggle('calendar')}>
+          <img src={calendarIcon} alt="Calendar" />
+          <p>Calendar</p>
+        </div>
+      </div>
+      {activeForm === 'task' && <TaskForm />}
+      {activeForm === 'symptom' && <SymptomForm />}
+      {activeForm === 'pain' && <PainForm />}
+      {activeForm === 'period' && <PeriodForm />}
+      {activeForm === 'medication' && <MedicationForm />}
+      {activeForm === 'sleep' && <SleepForm />}
+      {activeForm === 'weight' && <WeightTrackerForm />}
+      {activeForm === 'calendar' && <CalendarForm />}
     </div>
   );
 };

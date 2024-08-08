@@ -1,79 +1,112 @@
-/* App.css */
-
-body {
-  background-color: #1c1c1c;
-  color: #ffffff;
-  font-family: 'Arial', sans-serif;
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1A1E20; /* Ensuring the background color is uniform */
+  color: #D1CBC5;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
 }
 
 .dashboard-container {
-  text-align: center;
-  padding: 20px;
-  background-color: #282c34;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #1A1E20; /* Matching background color */
+  color: #D1CBC5;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .wiz-image {
   width: 100px;
-  height: auto;
-  margin-bottom: 20px;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
 h1 {
-  color: #61dafb;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.button {
-  background-color: #61dafb;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px 5px;
-  cursor: pointer;
-  border-radius: 5px;
+  font-size: 2.5em;
+  margin: 0;
 }
 
 .button-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
 }
 
-.form-container {
+.button-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #D1CBC5;
+  padding: 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  color: #1A1E20;
+}
+
+.button-item:hover {
+  background-color: #A9A7A3;
+}
+
+.button-item img {
+  width: 100%;
+  max-width: 50px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.button-item p {
+  margin: 0;
+  font-size: 1em;
+}
+
+@media (max-width: 600px) {
+  .button-group {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1A1E20; /* Matching background color */
+  color: #D1CBC5;
+  padding: 20px;
+  border-radius: 10px;
   margin-top: 20px;
 }
 
-input {
-  margin: 10px 0;
+form input, form button {
+  margin: 5px 0;
   padding: 10px;
-  font-size: 16px;
+  border: 1px solid #D1CBC5;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  background-color: #1A1E20; /* Matching background color */
+  color: #D1CBC5;
 }
 
-button[type="submit"] {
-  background-color: #61dafb;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 5px;
+form button {
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #D1CBC5;
+  color: #1A1E20;
 }
