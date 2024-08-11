@@ -1,27 +1,39 @@
-// src/App.jsx
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Dashboard from './components/Dashboard';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
-// import WelcomePage from './components/WelcomePage';
 import './App.css';
 
 const App = () => {
   return (
     <Router>
-      <div className="app">
-        <Routes>
+      <AnimatedRoutes />
+    </Router>
+  );
+};
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <TransitionGroup>
+      <CSSTransition
+        key={location.key}
+        classNames="slide"
+        timeout={900}
+      >
+        <Routes location={location}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/" element={<WelcomePage />} />
         </Routes>
-      </div>
-    </Router>
+      </CSSTransition>
+    </TransitionGroup>
   );
 };
-
 const WelcomePage = () => (
   <div className="welcome-page">
     <div className="whisker-wiz">

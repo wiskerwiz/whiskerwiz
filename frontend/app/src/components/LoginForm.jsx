@@ -1,34 +1,63 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+// frontend/src/components/LoginForm.jsx
+import React, { useState } from 'react';
+import AuthService from '../services/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+    });
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    // Implement login functionality
-  }
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-        required
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
-  )
-}
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            await AuthService.login(formData.username, formData.password);
+            navigate('/dashboard');
+        } catch (error) {
+            setError(error.response.data);
+        }
+    };
 
-export default LoginForm
+    return (
+        <div className="auth-container">
+            <h1>Login</h1>
+            <form onSubmit={handleLogin}>
+                <div>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                {error && <p>Error: {JSON.stringify(error)}</p>}
+                <button type="submit">Login</button>
+            </form>
+            <a href="/signup">Don't have an account? Sign up</a>
+        </div>
+    );
+};
+
+export default LoginForm;

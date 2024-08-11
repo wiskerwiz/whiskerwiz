@@ -1,68 +1,96 @@
+// frontend/src/components/SignupForm.jsx
 import React, { useState } from 'react';
-import axios from 'axios';
+import AuthService from '../services/AuthService';
 import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        first_name: '',  // Changed to match backend expectations
+        last_name: '',   // Changed to match backend expectations
+    });
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://127.0.0.1:8000/api/auth/signup/', {
-        username,
-        password,
-        email,
-      });
-      console.log('Signup response:', response); // Check the response
-      if (response.status === 201) {
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      console.error('Error signing up:', error);
-    }
-  };
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
+    };
 
-  return (
-    <div className="signup-form">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        try {
+            await AuthService.register(formData);
+            navigate('/dashboard');
+        } catch (error) {
+            setError(error.response.data);
+        }
+    };
+
+    return (
+        <div className="auth-container">
+            <h1>Sign Up</h1>
+            <form onSubmit={handleSignup}>
+                <div>
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="first_name"
+                        placeholder="First Name"
+                        value={formData.first_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        name="last_name"
+                        placeholder="Last Name"
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                {error && <p>Error: {JSON.stringify(error)}</p>}
+                <button type="submit">Sign Up</button>
+            </form>
+            <a href="/login">Already have an account? Log in</a>
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default SignupForm;

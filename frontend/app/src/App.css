@@ -2,23 +2,327 @@ body, html {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #1A1E20; /* Ensuring the background color is uniform */
+  background-color: #1A1E20; /* Background color for uniformity */
   color: #D1CBC5;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container, .signup-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #1A1E20;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form input {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #D1CBC5;
+  border-radius: 5px;
+  background-color: #1A1E20;
+  color: #D1CBC5;
+}
+
+form button {
+  padding: 10px;
+  background-color: #D1CBC5;
+  color: #1A1E20;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #A9A7A3;
+}
+
+.page-transition-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+/* Container for form */
+.auth-container {
+  background-color: #1A1E20; /* Dark background matching the theme */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+  width: 100%;
+  max-width: 400px;
+  color: #D1CBC5; /* Light text color */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-container:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.auth-container h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+  color: #D1CBC5;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.auth-container form div {
+  margin-bottom: 15px;
+}
+
+.auth-container form input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #D1CBC5;
+  background-color: #333; /* Dark input background */
+  color: #D1CBC5; /* Light text */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-container form input:focus {
+  border-color: #fff;
+  box-shadow: 0 0 5px #D1CBC5;
+  outline: none;
+}
+
+.auth-container form button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #D1CBC5;
+  color: #1A1E20;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-container form button:hover {
+  background-color: #A9A7A3; /* Slightly darker button on hover */
+  box-shadow: 0 0 10px #D1CBC5;
+}
+
+.auth-container a {
+  margin-top: 20px;
+  color: #D1CBC5;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.auth-container a:hover {
+  color: #A9A7A3;
+}
+/* Sliding animation */
+.slide-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.slide-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+}
+.slide-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.slide-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+}
+
+/* Centering the form and making sure it doesn't get cut off */
+.login-signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  padding: 20px; /* Add some padding to avoid cutting off */
+  box-sizing: border-box;
+}
+
+.login-signup-box {
+  width: 100%;
+  max-width: 400px; /* Set a max-width to prevent cutting off */
+  background-color: #1A1E20;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-signup-box h1 {
+  margin-bottom: 20px;
+  color: #D1CBC5;
+}
+
+.login-signup-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #333;
+  color: #D1CBC5;
+}
+
+.login-signup-box button {
+  width: 100%;
+  padding: 10px;
+  background-color: #D1CBC5;
+  color: #1A1E20;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-signup-box button:hover {
+  background-color: #A9A7A3;
+}
+
+.login-signup-box p {
+  color: #D1CBC5;
+}
+
+
+/* Additional styling for welcome page */
+.welcome-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.whisker-wiz img {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.button {
+  background-color: #D1CBC5;
+  color: #1A1E20;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: #A9A7A3;
+  color: #1A1E20;
+}
+
+
 .dashboard-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #1A1E20;
+  color: #D1CBC5;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+}
+
+.sidebar .user-info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar .user-info img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
   width: 100%;
-  max-width: 800px;
+}
+
+.sidebar ul li {
+  padding: 10px 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.sidebar ul li:hover {
+  background-color: #D1CBC5;
+  color: #1A1E20;
+}
+
+.sidebar ul li a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.main-content {
+  flex: 1;
   padding: 20px;
-  background-color: #1A1E20; /* Matching background color */
+  background-color: #1A1E20;
   color: #D1CBC5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
@@ -41,9 +345,10 @@ h1 {
 .button-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   gap: 20px;
   width: 100%;
+  max-width: 800px;
 }
 
 .button-item {
@@ -53,9 +358,11 @@ h1 {
   background-color: #D1CBC5;
   padding: 20px;
   border-radius: 10px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, height 0.3s, width 0.3s;
   cursor: pointer;
   color: #1A1E20;
+  text-decoration: none;
+  position: relative; /* Allow form to be positioned within the same box */
 }
 
 .button-item:hover {
@@ -77,36 +384,51 @@ h1 {
 @media (max-width: 600px) {
   .button-group {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: repeat(8, 1fr);
   }
 }
 
-form {
-  display: flex;
+.form-visible {
+  height: auto; /* Allow the button to resize */
+}
+
+.task-form {
+  display: none; /* Initially hidden */
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  background-color: #1A1E20; /* Matching background color */
-  color: #D1CBC5;
-  padding: 20px;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  background-color: #D1CBC5; /* Adjust background as needed */
   border-radius: 10px;
-  margin-top: 20px;
+  box-sizing: border-box;
 }
 
-form input, form button {
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #D1CBC5;
+.task-form.visible {
+  display: flex; /* Show the form when it's visible */
+}
+
+.task-form input,
+.task-form select {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #1A1E20; /* Matching background color */
-  color: #D1CBC5;
 }
 
-form button {
+.task-form button {
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.2s ease;
 }
 
-form button:hover {
-  background-color: #D1CBC5;
-  color: #1A1E20;
+.task-form button:hover {
+  background-color: #555;
 }
