@@ -1,7 +1,17 @@
-// frontend/src/services/AuthService.js
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8000/auth_app/';
+
+axios.defaults.withCredentials = true;  // Include credentials (cookies) with requests
+
+// Get CSRF token from cookies
+function getCSRFToken() {
+    const csrfCookie = document.cookie.match(/csrftoken=([^;]*)/);
+    return csrfCookie ? csrfCookie[1] : null;
+}
+
+axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
+axios.defaults.withCredentials = true;  
 
 class AuthService {
     register(userData) {
@@ -18,10 +28,16 @@ class AuthService {
         return axios.post(API_URL + 'login/', {
             username,
             password,
+        }).then(response => {
+            if (response.status === 200) {
+                localStorage.setItem('user', JSON.stringify(response.data));
+            }
+            return response.data;
         });
     }
 
     logout() {
+        localStorage.removeItem('user');
         return axios.post(API_URL + 'logout/');
     }
 

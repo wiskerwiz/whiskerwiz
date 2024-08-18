@@ -8,7 +8,7 @@ import PeriodForm from './PeriodForm';
 import MedicationForm from './MedicationForm';
 import SleepForm from './SleepForm';
 import WeightTrackerForm from './WeightTrackerForm';
-import CalendarForm from './CalendarForm';
+import CalendarView from './CalendarView'; 
 import Settings from './Settings';
 import Stats from './Stats';
 import Help from './Help';
@@ -41,7 +41,7 @@ const Dashboard = () => {
       <div className="main-content">
         <div className="header">
           {/* <img src={wizImage} alt="Wizard Icon" className="wiz-image" /> */}
-          <h1>Dashboard</h1>
+          <h1>AL's Dashboard</h1>
         </div>
         <div className="button-group">
           <div className="button-item" onClick={() => handleFormToggle('task')}>
@@ -84,7 +84,7 @@ const Dashboard = () => {
         {activeForm === 'medication' && <MedicationForm />}
         {activeForm === 'sleep' && <SleepForm />}
         {activeForm === 'weight' && <WeightTrackerForm />}
-        {activeForm === 'calendar' && <CalendarForm />}
+        {activeForm === 'calendar' && <CalendarView toggleCalendar={() => handleFormToggle(null)} />}
       </div>
     </div>
   );

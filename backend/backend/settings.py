@@ -106,9 +106,9 @@ DATABASES = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
        'rest_framework.authentication.SessionAuthentication',
-       'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -162,6 +162,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+]
+
+# settings.py
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
 ]
 
 CORS_ALLOW_CREDENTIALS = True

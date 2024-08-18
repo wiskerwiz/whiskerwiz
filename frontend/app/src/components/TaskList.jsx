@@ -1,4 +1,6 @@
 import React from 'react'
+import ConfettiWrapper from './ConfettiWrapper';
+
 
 const TaskList = ({ tasks }) => {
   return (

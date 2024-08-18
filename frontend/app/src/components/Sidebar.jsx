@@ -11,7 +11,7 @@ const Sidebar = ({ user }) => {
                 <p>Welcome, {user.username}!</p>
             </div>
             <ul>
-                <li><Link to="/">Home</Link></li>
+                <li><Link to="/dashboard">Home</Link></li> 
                 <li><Link to="/stats">Stats</Link></li>
                 <li><Link to="/settings">Settings</Link></li>
                 <li><Link to="/logout">Logout</Link></li>
@@ -22,5 +22,3 @@ const Sidebar = ({ user }) => {
 };
 
 export default Sidebar;
-
-// This project is due wednesday of next week so we need to make major moves. the logout button should just log the user out. the home button should just be redirecting back the dashboard. Also 

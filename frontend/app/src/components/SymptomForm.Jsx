@@ -1,6 +1,8 @@
 // src/components/SymptomForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import ConfettiWrapper from './ConfettiWrapper';
+
 
 const SymptomForm = ({ fetchSymptoms, toggleSymptomForm }) => {
   const [symptomDescription, setSymptomDescription] = useState('');

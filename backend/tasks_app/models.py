@@ -45,3 +45,11 @@ class SleepRecord(models.Model):
     sleep_duration = models.DurationField()
     sleep_quality = models.IntegerField()
     date_logged = models.DateField()
+
+class WeightRecord(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    weight = models.DecimalField(max_digits=5, decimal_places=2)
+    date_logged = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.weight}kg on {self.date_logged}"

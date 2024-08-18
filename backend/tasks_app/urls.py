@@ -1,7 +1,7 @@
 # tasks_app/urls.py
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TaskListCreate, SymptomListCreate, PainRecordListCreate, PeriodRecordListCreate, MedicationListCreate, SleepRecordListCreate
+from .views import TaskListCreate, SymptomListCreate, PainRecordListCreate, PeriodRecordListCreate, MedicationListCreate, SleepRecordListCreate, WeightRecordListCreate
 
 router = DefaultRouter()
 
@@ -12,7 +12,8 @@ urlpatterns = [
     path('pain_records/', PainRecordListCreate.as_view(), name='pain-record-list-create'),
     path('period_records/', PeriodRecordListCreate.as_view(), name='period-record-list-create'),
     path('medications/', MedicationListCreate.as_view(), name='medication-list-create'),
-    path('sleep/', SleepRecordListCreate.as_view(), name='sleep-record-list-create'),
+    path('sleep_records/', SleepRecordListCreate.as_view(), name='sleep-record-list-create'),
+    path('weight_records/', WeightRecordListCreate.as_view(), name='weight-record-list-create'),
 ]
 
 

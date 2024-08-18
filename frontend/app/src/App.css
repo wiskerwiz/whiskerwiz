@@ -432,3 +432,134 @@ h1 {
 .task-form button:hover {
   background-color: #555;
 }
+
+@keyframes smoothSlideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+/* Container that takes full screen */
+.calendar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1A1E20; /* Match your theme */
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* Styling the calendar */
+.react-calendar {
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+  background-color: #1A1E20; /* Match your theme */
+  border: none;
+  color: #D1CBC5; /* Text color to match your theme */
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Calendar navigation buttons */
+.react-calendar__navigation button {
+  color: #D1CBC5;
+  background-color: #282828; /* Slightly darker for navigation */
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+/* Disable hover effect */
+.react-calendar__navigation button:disabled {
+  background-color: #444;
+}
+
+/* Hover effect on navigation buttons */
+.react-calendar__navigation button:hover {
+  background-color: #383838;
+}
+
+/* Calendar days header (Mon, Tue, etc.) */
+.react-calendar__month-view__weekdays {
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: #333; /* Slightly lighter for weekday headers */
+  color: #D1CBC5; /* Light text color */
+  padding: 10px 0;
+}
+
+/* Individual day tiles */
+.react-calendar__month-view__days__day {
+  padding: 10px;
+  background-color: #1A1E20; /* Match the dark background */
+  color: #D1CBC5; /* Light text color */
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect on days */
+.react-calendar__tile:hover {
+  background-color: #505050; /* Slightly lighter on hover */
+  color: #fff; /* White text on hover */
+}
+
+/* Active day styling */
+.react-calendar__tile--active {
+  background-color: #D1CBC5; /* Accent color for active date */
+  color: #1A1E20; /* Ensure text is visible */
+}
+
+/* Current day styling */
+.react-calendar__tile--now {
+  background-color: #383838; /* Highlight for today's date */
+  color: #D1CBC5; /* Light text color */
+}
+
+/* Close button styling */
+.calendar-close-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #D1CBC5; /* Primary button color */
+  color: #1A1E20;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.calendar-close-button:hover {
+  background-color: #A9A7A3; /* Slightly darker on hover */
+}
+ /* src/App.css */
+
+/* Sliding animation */
+.slide-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.slide-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+}
+.slide-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+.slide-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+}

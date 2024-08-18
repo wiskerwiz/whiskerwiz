@@ -21,7 +21,12 @@ const LoginForm = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            await AuthService.login(formData.username, formData.password);
+            const response = await AuthService.login(formData.username, formData.password);
+
+            if (response.token) {
+                localStorage.setItem('token', response.token); // Store the token in localStorage
+            }
+
             navigate('/dashboard');
         } catch (error) {
             setError(error.response.data);

@@ -1,6 +1,6 @@
 # tasks_app/serializers.py
 from rest_framework import serializers
-from .models import Task, Symptom, PainRecord, PeriodRecord, Medication, SleepRecord
+from .models import Task, Symptom, PainRecord, PeriodRecord, Medication, SleepRecord, WeightRecord
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,4 +30,10 @@ class MedicationSerializer(serializers.ModelSerializer):
 class SleepRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = SleepRecord
-        fields = ['id', 'duration', 'quality', 'date_logged']
+        fields = ['id', 'sleep_duration', 'sleep_quality', 'date_logged']
+
+class WeightRecordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WeightRecord
+        fields = ['id', 'weight', 'date_logged']
+        read_only_fields = ['user']
